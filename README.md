@@ -1,2 +1,8 @@
-# Student Shop
-A free e-commerce demo for student project.
+* Select a framework:
+> Vanilla
+  Vue
+  React ← 你要選這個
+  Preact
+  Lit
+  Svelte
+  ...

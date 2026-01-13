@@ -1,7 +1,26 @@
-# health-promotion-platform
-A free e-commerce demo for student project.
-* Select a framework:
-> Vanilla
-  Vue
-  React …
+專案簡介
 
+這是一個正在開發中的運動促進平台，目標是打造一個方便用戶追蹤與管理健康活動的系統。
+目前專案以 HTML 為基礎，計劃逐步加入更多互動功能與後端支援。
+
+技術棧
+
+HTML
+
+CSS
+
+JavaScript（未來計劃加入）
+
+功能特色（進展中）
+
+網站框架與頁面設計完成
+
+商品展示與瀏覽功能開發中
+
+後續將新增會員管理與活動追蹤功能
+
+Demo / 使用說明
+
+目前尚無完整 Demo，後續會陸續更新
+
+可參考現有頁面設計與部分功能實作

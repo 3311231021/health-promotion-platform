@@ -1,161 +1,72 @@
- ProFit Health 健康運動促進平台
+ProFit Health 智慧健康運動促進平台
+從數據追蹤到專業介入：打造全方位的健康管理生態系
 
-![ProFit Health Logo](logo.png)
+▎專題核心理念
+ProFit Health 是一款整合「自主運動紀錄、大數據分析、專業醫護/教練指導」的智慧化平台。我們解決了傳統健康 App「數據孤島」的痛點，將單純的紀錄轉化為具備專業回饋的閉環管理系統。
 
----
+紀錄 (Tracking)：多維度生理與運動數據採集。
 
-##  專題簡介
+分析 (Analysis)：視覺化 Dashboard 趨勢判讀。
 
-ProFit Health 是一套整合「運動紀錄、健康管理與專業指導」的智慧健康促進平台。
+回饋 (Feedback)：專家介入機制，提供個人化任務指派與建議。
 
-本系統不僅提供基本健康紀錄功能，更透過結合「使用者自我追蹤」與「專業人員介入」機制，建立資料驅動的健康管理模式。
+▎系統核心價值
+數據驅動決策 (Data-driven)：利用 BMI 趨勢與運動統計，量化健康進度。
 
- 與傳統單一紀錄型應用不同，本系統形成：
+專家導向設計 (Expert-in-the-loop)：引入專業人員角色，補足 AI 紀錄所欠缺的人性化指導。
 
-**「紀錄 → 分析 → 回饋」閉環架構**
+多角色協同 (Multi-tenant Platform)：精準權限控管，整合「使用者、專家、管理者」三方需求。
 
-使健康數據不只是被儲存，而是能被解讀並轉化為實際行動建議。
+▎三方角色功能定位
+1. 一般使用者 (User) | 積極管理
+數據即時採集：整合 GPS 軌跡追蹤、計步器與 BMI 自動換算。
 
----
+目標達成系統：設定個人運動目標，透過 30 天達標率儀表板監控進度。
 
-##  系統核心價值
+專家諮詢管道：透過 Q&A 功能，直接向專屬專家尋求專業建議。
 
--  **資料驅動決策（Data-driven Health Management）**
--  **閉環健康管理（Tracking → Analysis → Feedback）**
--  **專業介入機制（Expert-in-the-loop）**
--  **多角色整合平台（User / Expert / Admin）**
+2. 專業人員 (Expert) | 精準介入
+個案管理看板：遠端監控多名使用者的運動與生理數據異常。
 
- 系統定位：  
-**從「健康紀錄工具」升級為「健康管理平台」**
+個人化處方：根據數據下達「任務指派 (Task)」與「回饋建議 (Feedback)」。
 
----
+互動溝通：回覆個案諮詢，建立高黏著度的指導關係。
 
-##  系統角色
+3. 系統管理者 (Admin) | 營運維護
+智慧配對：依據專家領域（如：減重、增肌、慢病管理）指派對應使用者。
 
-###  一般使用者（User）
-- 記錄運動與健康資料
-- 查看 Dashboard 分析
-- 設定目標與追蹤進度
-- 向專家提問（Q&A）
+資源控管：帳號生命週期管理與系統權限配置。
 
----
+▎技術架構與特色
+本系統採用 前後端分離架構 (RESTful API)，具備跨平台擴充性，未來可輕鬆銜接穿戴式裝置與 App 開發。
 
-###  專業人員（Expert）
-- 查看個案健康與運動狀況
-- 提供回饋（Feedback）
-- 指派任務（Task）
-- 回覆使用者問題
+前端開發：HTML5, CSS3, JavaScript (原生效能優化)。
 
----
+後端核心：Node.js + Express (高併發處理能力)。
 
-###  系統管理者（Admin）
-- 建立與管理專家帳號
-- 指派專家與使用者（1對多）
-- 管理平台角色權限
+數據儲存：SQLite (輕量化、易於部署與攜帶)。
 
----
+安全驗證：JWT (JSON Web Token) 跨網域加密驗證。
 
-##  主要功能
+視覺化整合：Chart.js (趨勢分析) + Leaflet (GPS 地圖渲染)。
 
-###  使用者功能
-- JWT 登入 / 註冊驗證
-- 運動紀錄（時間 / 步數 / 卡路里 / 心率）
-- GPS 地圖運動 + 計步
-- 健康紀錄（BMI 自動計算）
-- Dashboard 視覺化分析：
-  - 今日狀態
-  - 30 天達標率
-  - 本週 / 本月統計
-  - BMI 趨勢
-
----
-
-###  專家功能
-- 個案管理
-- 健康數據分析
-- 任務指派（Task）
-- 回饋建議（Feedback）
-- 問題回覆（Q&A）
-
----
-
-###  管理者功能
-- 專家帳號管理
-- 專業領域分類（specialty）
-- 專家與使用者配對
-
----
-
-##  系統架構
-
-- **Frontend**：HTML / CSS / JavaScript  
-- **Backend**：Node.js + Express  
-- **Database**：SQLite  
-- **Authentication**：JWT  
-- **Chart**：Chart.js  
-- **Map**：Leaflet  
-
- 採用前後端分離架構（RESTful API）  
- 具備高擴充性（可延伸 App / 穿戴裝置）
-
----
-
-##  啟動方式
-
-###  啟動後端
-
-```bash
+▎快速啟動與開發說明
+開發者模式
+Bash
 cd backend
 npm install
-node index.js
+node index.js  # API Server 預設啟動於 http://localhost:3000
+使用者模式
+一鍵啟動：執行 start.bat 自動開啟後端與載入前端介面。
 
-API 預設：
+測試環境：內建 health.db 模擬資料庫，支持三方角色直接測試。
 
-http://localhost:3000
- 啟動前端
+▎未來發展藍圖 (Roadmap)
+AI 預警系統：針對異常 BMI 或運動量驟減自動推播警示。
 
-直接開啟：
+課程與金流整合：新增線上健康課程訂閱與支付機制。
 
-frontend/auth.html
+穿戴裝置同步：串接 Web Bluetooth API 獲取即時心率與血氧數據。
 
-或使用 VS Code Live Server。
-
- 一鍵啟動（Windows）
- 啟動系統
-start.bat
- 關閉系統
-stop.bat
- 測試說明
-使用測試資料庫（health.db）
-不包含真實個資
-可自行註冊 User / Expert / Admin 測試
-
-⚠️ GitHub Pages 僅展示前端畫面
-完整功能需搭配後端 API
-
- 專案結構
-health-promotion-platform/
-├── backend/
-├── frontend/
-├── start.bat
-├── stop.bat
-├── README.md
- 專題特色
-多角色系統（User / Expert / Admin）
-健康數據視覺化（Chart.js）
-專家互動機制（Feedback / Task / Q&A）
-GPS 運動整合（Leaflet）
-JWT 安全驗證
-一鍵啟動系統
- Demo 流程
-執行 start.bat
-開啟登入頁
-登入系統
-查看 Dashboard
-切換角色體驗（User / Expert / Admin）
-
- 作者
-
-Nancy Lee
-3311231021
-資訊管理系 專題作品
+專案貢獻者
+Nancy Lee | 資訊管理系 專題作品

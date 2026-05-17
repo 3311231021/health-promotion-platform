@@ -99,7 +99,7 @@ npm -v
 
 ### 3. 啟動健康促進平台 (Launch Platform)
 
-#### 【方法 A】一鍵智能啟動（推薦展示使用）
+#### 【方法 A】一鍵啟動（推薦展示使用）
 直接雙擊執行專案根目錄下的批次檔：
 ```bash
 start.bat
@@ -165,6 +165,6 @@ health-promotion-platform/
 ## 作者 / Author
 **Nancy Lee**  
 資訊管理學系 畢業專題作品  
-*Department of Information Management – Graduation Project*
+
 
 

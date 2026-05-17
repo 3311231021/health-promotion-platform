@@ -6,8 +6,9 @@
     <title>健康紀錄（BMI 計算）</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, "Microsoft JhengHei", sans-serif;
             padding: 20px;
+            background: #f8f9fa;
         }
 
         h2 {
@@ -15,7 +16,7 @@
         }
 
         input {
-            width: 200px;
+            width: 220px;
             padding: 8px;
             margin: 5px 0 15px 0;
             display: block;
@@ -28,42 +29,159 @@
             color: white;
             border-radius: 5px;
             cursor: pointer;
+            margin: 5px 0;
         }
 
         button:hover {
             background-color: #0056b3;
         }
 
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .underweight {
+            color: #17a2b8;
+        }
+
+        .normal {
+            color: #28a745;
+        }
+
+        .overweight {
+            color: #fd7e14;
+        }
+
+        .obese {
+            color: #dc3545;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            margin-top: 10px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
         #history div {
             margin-bottom: 8px;
-            padding: 6px;
-            background: #f4f4f4;
+            padding: 10px;
+            background: #ffffff;
+            border-left: 5px solid #007bff;
             border-radius: 4px;
         }
     </style>
 </head>
 <body>
 
-<h2>健康紀錄（BMI 計算）</h2>
+<div class="card">
+    <h2>健康紀錄（BMI 計算）</h2>
 
-<label>身高 (cm)</label>
-<input type="number" id="height" placeholder="請輸入身高">
+    <label>身高 (cm)</label>
+    <input type="number" id="height" placeholder="請輸入身高">
 
-<label>體重 (kg)</label>
-<input type="number" id="weight" placeholder="請輸入體重">
+    <label>體重 (kg)</label>
+    <input type="number" id="weight" placeholder="請輸入體重">
 
-<button onclick="saveRecord()">儲存紀錄</button>
+    <button onclick="saveRecord()">儲存紀錄</button>
 
-<hr>
+    <div id="result"></div>
+</div>
 
-<h2>歷史紀錄</h2>
-<div id="history">讀取中...</div>
+<div class="card">
+    <h2>BMI 標準參考</h2>
+
+    <table>
+        <tr>
+            <th>BMI 範圍</th>
+            <th>狀態</th>
+        </tr>
+        <tr>
+            <td>&lt; 18.5</td>
+            <td class="underweight">過輕</td>
+        </tr>
+        <tr>
+            <td>18.5 - 23.9</td>
+            <td class="normal">正常</td>
+        </tr>
+        <tr>
+            <td>24 - 26.9</td>
+            <td class="overweight">過重</td>
+        </tr>
+        <tr>
+            <td>≧ 27</td>
+            <td class="obese">肥胖</td>
+        </tr>
+    </table>
+</div>
+
+<div class="card">
+    <h2>歷史紀錄</h2>
+    <div id="history">讀取中...</div>
+</div>
 
 <button onclick="window.location.href='dashboard.html'">回首頁</button>
 
 <script>
-const isGitHub = location.hostname.includes("github.io");
+// -----------------------------------------
+// ⭐ BMI 狀態判定
+// -----------------------------------------
+function getBmiStatus(bmi) {
+    bmi = Number(bmi);
 
+    if (bmi < 18.5) {
+        return "過輕";
+    } else if (bmi < 24) {
+        return "正常";
+    } else if (bmi < 27) {
+        return "過重";
+    } else {
+        return "肥胖";
+    }
+}
+
+// -----------------------------------------
+// ⭐ BMI 狀態顏色
+// -----------------------------------------
+function getBmiClass(bmi) {
+    bmi = Number(bmi);
+
+    if (bmi < 18.5) {
+        return "underweight";
+    } else if (bmi < 24) {
+        return "normal";
+    } else if (bmi < 27) {
+        return "overweight";
+    } else {
+        return "obese";
+    }
+}
+
+// -----------------------------------------
+// ⭐ 儲存 BMI 紀錄（POST /api/health_records）
+// -----------------------------------------
 async function saveRecord() {
     const height = document.getElementById("height").value;
     const weight = document.getElementById("weight").value;
@@ -73,24 +191,18 @@ async function saveRecord() {
         return;
     }
 
-    const bmi = (weight / ((height / 100) ** 2)).toFixed(2);
-
-    if (isGitHub) {
-        const record = {
-            height,
-            weight,
-            bmi,
-            created_at: new Date().toLocaleString("zh-TW")
-        };
-
-        const records = JSON.parse(localStorage.getItem("healthRecords") || "[]");
-        records.push(record);
-        localStorage.setItem("healthRecords", JSON.stringify(records));
-
-        alert("已儲存（展示模式）");
-        loadRecords();
+    if (Number(height) <= 0 || Number(weight) <= 0) {
+        alert("身高與體重必須大於 0！");
         return;
     }
+
+    const bmi = (weight / ((height / 100) ** 2)).toFixed(2);
+    const bmiStatus = getBmiStatus(bmi);
+    const bmiClass = getBmiClass(bmi);
+
+    const result = document.getElementById("result");
+    result.className = bmiClass;
+    result.innerHTML = `BMI：${bmi}　狀態：${bmiStatus}`;
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -112,59 +224,55 @@ async function saveRecord() {
     });
 
     const data = await res.json();
-    alert(data.message);
+
+    alert(`BMI：${bmi}\n狀態：${bmiStatus}\n\n${data.message}`);
+
     loadRecords();
 }
 
+// -----------------------------------------
+// ⭐ 載入健康紀錄（GET /api/health_records）
+// -----------------------------------------
 async function loadRecords() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        document.getElementById("history").innerHTML = "尚未登入，無法讀取紀錄";
+        return;
+    }
+
+    const res = await fetch("/api/health_records", {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    });
+
+    const records = await res.json();
+
     const list = document.getElementById("history");
     list.innerHTML = "";
 
-    if (isGitHub) {
-        const records = JSON.parse(localStorage.getItem("healthRecords") || "[]");
-
-        if (records.length === 0) {
-            list.innerHTML = "目前沒有紀錄（展示模式）";
-            return;
-        }
-
-        records.forEach(r => {
-            const div = document.createElement("div");
-            div.textContent = `${r.created_at}｜身高：${r.height}cm｜體重：${r.weight}kg｜BMI：${r.bmi}`;
-            list.appendChild(div);
-        });
+    if (!records || records.length === 0) {
+        list.innerHTML = "目前沒有紀錄";
         return;
     }
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-        list.innerHTML = "尚未登入";
-        return;
-    }
+    records.forEach(r => {
+        const div = document.createElement("div");
+        const status = getBmiStatus(r.bmi);
+        const statusClass = getBmiClass(r.bmi);
 
-    try {
-        const res = await fetch("/api/health_records", {
-            method: "GET",
-            headers: {
-                "Authorization": "Bearer " + token
-            }
-        });
+        div.innerHTML = `
+            ${r.created_at}｜
+            身高：${r.height}cm｜
+            體重：${r.weight}kg｜
+            BMI：${r.bmi}
+            <span class="${statusClass}">（${status}）</span>
+        `;
 
-        const records = await res.json();
-
-        if (!records || records.length === 0) {
-            list.innerHTML = "目前沒有紀錄";
-            return;
-        }
-
-        records.forEach(r => {
-            const div = document.createElement("div");
-            div.textContent = `${r.created_at}｜身高：${r.height}cm｜體重：${r.weight}kg｜BMI：${r.bmi}`;
-            list.appendChild(div);
-        });
-    } catch (err) {
-        list.innerHTML = "讀取失敗";
-    }
+        list.appendChild(div);
+    });
 }
 
 loadRecords();

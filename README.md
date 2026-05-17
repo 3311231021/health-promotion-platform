@@ -237,12 +237,17 @@ health-promotion-platform/
  穿戴裝置及測量值整合（Mi Fitness / Omron Cloud API / Apple HealthKit / Google Fit API 等 ）
  課程與金流系統
  行動 App（Mobile App）
+  系統安全與隱私防護機制：
+   * 多因素身分驗證（MFA）與信箱開通驗證機制
+   * 靜態資料加密（機敏生理數據 AES-256 加密儲存）
+   * API 流量限制（Rate Limiting）與安全硬化（Helmet.js 防禦）
+   * 操作審計日誌（Audit Logs）以符合健康個資法規
 
 ---
 
 ##  作者
 
-Nancy Lee（3311231021）
-資訊管理學系 專題作品
+Nancy Lee
+資訊管理學系 畢業專題作品
 
 ---
